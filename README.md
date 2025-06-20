@@ -12,7 +12,7 @@ A customizable security auditing tool for Linux systems.
 ## Quick Start
 
 ```bash
-git clone https://github.com/yourusername/linux-hardening-audit.git
+https://github.com/Thilak098/linux-hardening-audit-tool.git
 cd linux-hardening-audit
 pip install -r requirements.txt
 python main.py --help
