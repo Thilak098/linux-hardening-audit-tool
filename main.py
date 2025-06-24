@@ -1,8 +1,6 @@
-from checks.authentication import check_password_max_days, check_password_min_len
+from checks.ssh import check_ssh_protocol
 
 if __name__ == "__main__":
-    results = [
-        check_password_max_days(),
-        check_password_min_len()
-    ]
+    results = [check_ssh_protocol()]
     print(results)
+
