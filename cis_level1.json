@@ -1,0 +1,12 @@
+[
+    {
+        "check": "password_max_days",
+        "description": "Ensure password expiration is 90 days or less",
+        "severity": "high"
+    },
+    {
+        "check": "ssh_root_login",
+        "description": "Ensure SSH root login is disabled",
+        "severity": "critical"
+    }
+]

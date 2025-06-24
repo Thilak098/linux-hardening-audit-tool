@@ -1,0 +1,18 @@
+[
+    {
+        "check": "password_max_days",
+        "description": "Ensure password expiration is 90 days or less",
+        "command": "grep ^PASS_MAX_DAYS /etc/login.defs",
+        "expect": "PASS_MAX_DAYS 90",
+        "severity": "high"
+    },
+    {
+        "check": "ssh_protocol",
+        "description": "Allow only SSH Protocol 2",
+        "command": "grep ^Protocol /etc/ssh/sshd_config",
+        "expect": "Protocol 2",
+        "severity": "critical"
+    }
+]
+
+
