@@ -1,0 +1,16 @@
+[
+    {
+        "id": "file_permissions",
+        "description": "Check critical file permissions",
+        "severity": "HIGH",
+        "command": "stat -c '%a %n' /etc/passwd /etc/shadow",
+        "expected": ["644 /etc/passwd", "640 /etc/shadow"]
+    },
+    {
+        "id": "syslog_forwarding",
+        "description": "Check syslog forwarding is enabled",
+        "severity": "MEDIUM",
+        "command": "grep ^*.* @ /etc/rsyslog.conf",
+        "expected": "*.* @loghost"
+    }
+]

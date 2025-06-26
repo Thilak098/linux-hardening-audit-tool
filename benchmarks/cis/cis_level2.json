@@ -1,0 +1,16 @@
+[
+    {
+        "id": "password_history",
+        "description": "Check password history is remembered",
+        "severity": "MEDIUM",
+        "command": "grep ^remember /etc/pam.d/common-password",
+        "expected": "remember=5"
+    },
+    {
+        "id": "ssh_protocol",
+        "description": "Check only SSH protocol 2 is used",
+        "severity": "HIGH",
+        "command": "grep ^Protocol /etc/ssh/sshd_config",
+        "expected": "Protocol 2"
+    }
+]

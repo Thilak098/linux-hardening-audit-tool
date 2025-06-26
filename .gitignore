@@ -1,21 +1,43 @@
-# Byte-compiled Python files
+# Python artifacts
 __pycache__/
 *.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.pytest_cache/
 
-# Virtual environment
+# Virtual environments
 venv/
+lh-audit-venv/
+.env/
+.env*/
+.env.local
 
-# IDE/Editor files
+# System and IDE files
+.DS_Store
 .idea/
 .vscode/
+*.swp
+*.swo
 
-# Logs and databases
+# Logs and reports
 *.log
+audits/*.html
+audits/*.json
+!audits/sample_report.*
+
+# Local configuration
+config/local*.service
+
+# Dependency directories
+node_modules/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database files
+*.db
 *.sqlite
-
-# System files
-.DS_Store
-
-# Credentials
-.env
-secrets.yml
+storage/records.db

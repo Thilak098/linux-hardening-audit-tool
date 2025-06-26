@@ -1,0 +1,16 @@
+[
+    {
+        "id": "password_max_days",
+        "description": "Check password maximum days policy",
+        "severity": "HIGH",
+        "command": "grep ^PASS_MAX_DAYS /etc/login.defs",
+        "expected": "PASS_MAX_DAYS 90"
+    },
+    {
+        "id": "ssh_root_login",
+        "description": "Check SSH root login is disabled",
+        "severity": "CRITICAL",
+        "command": "grep ^PermitRootLogin /etc/ssh/sshd_config",
+        "expected": "PermitRootLogin no"
+    }
+]

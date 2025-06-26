@@ -20,6 +20,7 @@ Usage:
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Dict, List
 
@@ -69,22 +70,60 @@ def print_colorized(report_json: str) -> None:
         print(report_json)
 
 
+def get_benchmark_path(benchmark_name: str) -> Path:
+    """Get the correct path for benchmark files.
+    
+    Args:
+        benchmark_name: Name of the benchmark
+        
+    Returns:
+        Path object to the benchmark file
+    """
+    benchmark_map = {
+        "cis_level1": "benchmarks/cis/cis_level1.json",
+        "cis_level2": "benchmarks/cis/cis_level2.json",
+        "stig": "benchmarks/stig/stig_ubuntu.json"
+    }
+    
+    if benchmark_name not in benchmark_map:
+        raise ValueError(f"Unknown benchmark: {benchmark_name}")
+    
+    return Path(benchmark_map[benchmark_name])
+
+
 def load_benchmark(benchmark_name: str) -> List[Dict]:
     """Load security benchmark checks from JSON file.
     
     Args:
-        benchmark_name: Name of benchmark file (without extension)
-    
+        benchmark_name: Name of benchmark file
+        
     Returns:
-        List of benchmark checks or empty list on error
+        List of benchmark checks
+        
+    Raises:
+        SystemExit if benchmark cannot be loaded
     """
-    benchmark_path = Path("benchmarks") / f"{benchmark_name}.json"
     try:
-        with open(benchmark_path) as f:
+        benchmark_path = get_benchmark_path(benchmark_name)
+        if not benchmark_path.exists():
+            print(f"Error: Benchmark file not found at {benchmark_path}")
+            print("Please ensure:")
+            print(f"1. The file {benchmark_path.name} exists")
+            print(f"2. It's located in {benchmark_path.parent}")
+            sys.exit(1)
+            
+        with benchmark_path.open() as f:
             return json.load(f)
+            
+    except json.JSONDecodeError as e:
+        print(f"Error: Invalid JSON in benchmark file {benchmark_path}")
+        print(f"Details: {e}")
+        sys.exit(1)
     except Exception as e:
-        print(f"Error loading benchmark: {e}")
-        return []
+        print(f"Unexpected error loading benchmark: {e}")
+        sys.exit(1)
+
+
 def run_default_checks() -> List[Dict]:
     """Run all standard security checks"""
     return [
@@ -116,6 +155,7 @@ def run_default_checks() -> List[Dict]:
         check_unwanted_packages()
     ]
 
+
 def run_benchmark_checks(benchmark_name: str) -> List[Dict]:
     """Run checks from specified benchmark"""
     benchmark_checks = load_benchmark(benchmark_name)
@@ -141,6 +181,7 @@ def run_benchmark_checks(benchmark_name: str) -> List[Dict]:
             })
     
     return results
+
 
 def parse_args():
     """Handle command-line arguments"""
@@ -171,33 +212,40 @@ def parse_args():
     )
     return parser.parse_args()
 
+
 def main():
     args = parse_args()
     
-    # Run appropriate checks
-    if args.benchmark:
-        results = run_benchmark_checks(args.benchmark)
-    else:
-        results = run_default_checks()
-        if args.quick:
-            results = [r for r in results if r.get("severity") in ("CRITICAL", "HIGH")]
-    
-    # Generate report
-    if args.format == "html":
-        report = generate_html_report(results)
-    else:
-        report = generate_report(results)
-        if args.format == "color":
-            print_colorized(report)
-            return
-    
-    # Output handling
-    if args.output:
-        with open(args.output, 'w') as f:
-            f.write(report)
-        print(f"Report saved to {args.output}")
-    else:
-        print(report)
+    try:
+        # Run appropriate checks
+        if args.benchmark:
+            results = run_benchmark_checks(args.benchmark)
+        else:
+            results = run_default_checks()
+            if args.quick:
+                results = [r for r in results if r.get("severity") in ("CRITICAL", "HIGH")]
+        
+        # Generate report
+        if args.format == "html":
+            report = generate_html_report(results)
+        else:
+            report = generate_report(results)
+            if args.format == "color":
+                print_colorized(report)
+                return
+        
+        # Output handling
+        if args.output:
+            with open(args.output, 'w') as f:
+                f.write(report)
+            print(f"Report saved to {args.output}")
+        else:
+            print(report)
+            
+    except Exception as e:
+        print(f"Fatal error during audit: {e}")
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

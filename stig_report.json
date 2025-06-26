@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "tool": "Linux Hardening Auditor",
+    "timestamp": "2025-06-26T01:58:19.559093Z",
+    "statistics": {
+      "total_checks": 2,
+      "passed": 0,
+      "failed": 0,
+      "errors": 0,
+      "total_duration_seconds": 0,
+      "average_duration_seconds": 0.0
+    }
+  },
+  "findings": [
+    {
+      "id": "file_permissions",
+      "status": "SKIPPED",
+      "severity": "HIGH",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-26T01:58:19.559137Z",
+      "details": {
+        "current_value": null,
+        "expected_value": null,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "syslog_forwarding",
+      "status": "SKIPPED",
+      "severity": "MEDIUM",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-26T01:58:19.559147Z",
+      "details": {
+        "current_value": null,
+        "expected_value": null,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    }
+  ]
+}
