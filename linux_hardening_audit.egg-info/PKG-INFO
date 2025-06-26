@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: linux-hardening-audit
+Version: 1.0.0
+Requires-Python: >=3.8
+License-File: LICENSE
+Requires-Dist: click>=8.0.0
+Requires-Dist: rich>=13.0.0
+Provides-Extra: full
+Requires-Dist: python-apt; (platform_system == "Linux" and sys_platform == "linux") and extra == "full"
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python

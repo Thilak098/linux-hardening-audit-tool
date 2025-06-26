@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "tool": "Linux Hardening Auditor",
+    "timestamp": "2025-06-24T11:54:02.292437Z",
+    "statistics": {
+      "total_checks": 13,
+      "passed": 6,
+      "failed": 3,
+      "errors": 4,
+      "total_duration_seconds": 0,
+      "average_duration_seconds": 0.0
+    }
+  },
+  "findings": [
+    {
+      "id": "password_max_days",
+      "status": "PASS",
+      "severity": "LOW",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.184378Z",
+      "details": {
+        "current_value": 90,
+        "expected_value": 90,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "password_min_len",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.186387Z",
+      "details": {
+        "current_value": null,
+        "expected_value": null,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "shadow_perms",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.292492Z",
+      "details": {
+        "current_value": "0o640",
+        "expected_value": "0o640",
+        "resource": "/etc/login.defs"
+      },
+      "remediation": "Run: sudo chmod 640 /etc/shadow"
+    },
+    {
+      "id": "ssh_root_login",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.292496Z",
+      "details": {
+        "current_value": "",
+        "expected_value": "no",
+        "resource": "/etc/login.defs"
+      },
+      "remediation": "Set 'PermitRootLogin no' in /etc/ssh/sshd_config"
+    },
+    {
+      "id": "unwanted_services",
+      "status": "PASS",
+      "severity": "HIGH",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.292500Z",
+      "details": {
+        "current_value": "None",
+        "expected_value": "None",
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "open_ports",
+      "status": "PASS",
+      "severity": "HIGH",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.215026Z",
+      "details": {
+        "current_value": "No risky ports",
+        "expected_value": "No risky ports open",
+        "resource": "/etc/login.defs"
+      },
+      "remediation": "None needed"
+    },
+    {
+      "id": "ip_forwarding",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.216326Z",
+      "details": {
+        "current_value": 0,
+        "expected_value": 0,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": "None needed"
+    },
+    {
+      "id": "icmp_redirects",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.217414Z",
+      "details": {
+        "current_value": 1,
+        "expected_value": 0,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": "Set 'net.ipv4.conf.all.accept_redirects=0' in /etc/sysctl.conf"
+    },
+    {
+      "id": "ufw_status",
+      "status": "ERROR",
+      "severity": "HIGH",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.218111Z",
+      "details": {
+        "current_value": null,
+        "expected_value": null,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "firewall_default_deny",
+      "status": "ERROR",
+      "severity": "HIGH",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.218524Z",
+      "details": {
+        "current_value": null,
+        "expected_value": null,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "firewall_rules",
+      "status": "ERROR",
+      "severity": "HIGH",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.218896Z",
+      "details": {
+        "current_value": null,
+        "expected_value": null,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "vulnerable_packages",
+      "status": "ERROR",
+      "severity": "MEDIUM",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.218913Z",
+      "details": {
+        "current_value": null,
+        "expected_value": null,
+        "resource": "/etc/login.defs"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "unwanted_packages",
+      "status": "PASS",
+      "severity": "LOW",
+      "duration_seconds": 0,
+      "timestamp": "2025-06-24T11:54:02.243310Z",
+      "details": {
+        "current_value": {
+          "count": 0,
+          "packages": []
+        },
+        "expected_value": "0 unwanted packages",
+        "resource": "/etc/login.defs"
+      },
+      "remediation": "None needed"
+    }
+  ]
+}

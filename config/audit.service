@@ -1,0 +1,12 @@
+[Unit]
+Description=Linux Audit Tool
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/audit --format html --output /var/log/audit-report.html
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

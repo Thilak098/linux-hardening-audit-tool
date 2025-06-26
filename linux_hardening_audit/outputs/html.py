@@ -1,15 +1,21 @@
 from datetime import datetime
+from typing import List, Dict
 
-def generate_html_report(results):
+def generate_html_report(results: List[Dict]) -> str:
     """
-    Generates a professional HTML security audit report
+    Generates a professional HTML security audit report with fault tolerance
     Args:
         results: List of check results (dicts)
     Returns:
         HTML string with styled report
     """
-    timestamp = results[0]["timestamp"] if results else datetime.now().isoformat()
-    
+    # Safe timestamp extraction
+    timestamp = (
+        results[0].get("timestamp", "") 
+        if results and isinstance(results[0], dict) 
+        else datetime.now().isoformat()
+    )
+
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,16 +71,30 @@ def generate_html_report(results):
             color: #f39c12;
             font-weight: bold;
         }}
+        .WARN {{
+            color: #f1c40f;
+            font-weight: bold;
+        }}
         .severity-CRITICAL {{
             background-color: #ffdddd;
         }}
         .severity-HIGH {{
             background-color: #ffeedd;
         }}
+        .severity-MEDIUM {{
+            background-color: #ffffdd;
+        }}
+        .severity-LOW {{
+            background-color: #eeffee;
+        }}
         .timestamp {{
             font-style: italic;
             color: #7f8c8d;
             text-align: right;
+        }}
+        .missing-data {{
+            color: #9b59b6;
+            font-style: italic;
         }}
     </style>
 </head>
@@ -94,15 +114,21 @@ def generate_html_report(results):
         </thead>
         <tbody>"""
 
-    for result in results:
+    # Safe results processing
+    for result in results if isinstance(results, list) else []:
+        if not isinstance(result, dict):
+            continue
+            
         html += f"""
-            <tr class="severity-{result.get('severity', 'MEDIUM')}">
-                <td>{result['check']}</td>
-                <td class="{result['status']}">{result['status']}</td>
-                <td>{result.get('severity', 'medium')}</td>
-                <td>{result.get('value', 'N/A')}</td>
-                <td>{result.get('expected', 'N/A')}</td>
-                <td>{result.get('remediation', 'None provided')}</td>
+            <tr class="severity-{result.get('severity', 'MEDIUM').upper()}">
+                <td>{result.get('check', '<span class="missing-data">missing-check-id</span>')}</td>
+                <td class="{result.get('status', 'ERROR')}">
+                    {result.get('status', '<span class="missing-data">ERROR</span>')}
+                </td>
+                <td>{result.get('severity', '<span class="missing-data">medium</span>')}</td>
+                <td>{result.get('value', '<span class="missing-data">N/A</span>')}</td>
+                <td>{result.get('expected', '<span class="missing-data">N/A</span>')}</td>
+                <td>{result.get('remediation', '<span class="missing-data">None provided</span>')}</td>
             </tr>"""
 
     html += """

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Security Audit Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .PASS {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .FAIL {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .ERROR {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        .severity-CRITICAL {
+            background-color: #ffdddd;
+        }
+        .severity-HIGH {
+            background-color: #ffeedd;
+        }
+        .timestamp {
+            font-style: italic;
+            color: #7f8c8d;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Linux Security Audit Report</h1>
+    <div class="timestamp">Generated on: 2025-06-24T11:20:28.710928Z</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Check ID</th>
+                <th>Status</th>
+                <th>Severity</th>
+                <th>Current Value</th>
+                <th>Expected Value</th>
+                <th>Remediation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="severity-HIGH">
+                <td>password_max_days</td>
+                <td class="FAIL">FAIL</td>
+                <td>HIGH</td>
+                <td>99999</td>
+                <td>90</td>
+                <td>None provided</td>
+            </tr>
+            <tr class="severity-MEDIUM">
+                <td>password_min_len</td>
+                <td class="FAIL">FAIL</td>
+                <td>MEDIUM</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>None provided</td>
+            </tr>
+            <tr class="severity-MEDIUM">
+                <td>shadow_perms</td>
+                <td class="PASS">PASS</td>
+                <td>medium</td>
+                <td>0o640</td>
+                <td>0o640</td>
+                <td>Run: sudo chmod 640 /etc/shadow</td>
+            </tr>
+            <tr class="severity-MEDIUM">
+                <td>ssh_root_login</td>
+                <td class="FAIL">FAIL</td>
+                <td>medium</td>
+                <td></td>
+                <td>no</td>
+                <td>Set 'PermitRootLogin no' in /etc/ssh/sshd_config</td>
+            </tr>
+            <tr class="severity-HIGH">
+                <td>unwanted_services</td>
+                <td class="PASS">PASS</td>
+                <td>HIGH</td>
+                <td>None</td>
+                <td>None</td>
+                <td></td>
+            </tr>
+            <tr class="severity-HIGH">
+                <td>open_ports</td>
+                <td class="PASS">PASS</td>
+                <td>HIGH</td>
+                <td>No risky ports</td>
+                <td>No risky ports open</td>
+                <td>None needed</td>
+            </tr>
+            <tr class="severity-MEDIUM">
+                <td>ip_forwarding</td>
+                <td class="PASS">PASS</td>
+                <td>MEDIUM</td>
+                <td>0</td>
+                <td>0</td>
+                <td>None needed</td>
+            </tr>
+            <tr class="severity-MEDIUM">
+                <td>icmp_redirects</td>
+                <td class="FAIL">FAIL</td>
+                <td>MEDIUM</td>
+                <td>1</td>
+                <td>0</td>
+                <td>Set 'net.ipv4.conf.all.accept_redirects=0' in /etc/sysctl.conf</td>
+            </tr>
+            <tr class="severity-HIGH">
+                <td>ufw_status</td>
+                <td class="ERROR">ERROR</td>
+                <td>HIGH</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>None provided</td>
+            </tr>
+            <tr class="severity-HIGH">
+                <td>firewall_default_deny</td>
+                <td class="ERROR">ERROR</td>
+                <td>HIGH</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>None provided</td>
+            </tr>
+            <tr class="severity-HIGH">
+                <td>firewall_rules</td>
+                <td class="ERROR">ERROR</td>
+                <td>HIGH</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>None provided</td>
+            </tr>
+            <tr class="severity-HIGH">
+                <td>vulnerable_packages</td>
+                <td class="ERROR">ERROR</td>
+                <td>HIGH</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>None provided</td>
+            </tr>
+            <tr class="severity-HIGH">
+                <td>unwanted_packages</td>
+                <td class="FAIL">FAIL</td>
+                <td>HIGH</td>
+                <td>{'count': 1, 'packages': ['ldap-utils']}</td>
+                <td>0 unwanted packages</td>
+                <td>Run: sudo apt purge ldap-utils</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

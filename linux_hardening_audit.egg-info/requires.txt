@@ -1,0 +1,7 @@
+click>=8.0.0
+rich>=13.0.0
+
+[full]
+
+[full:platform_system == "Linux" and sys_platform == "linux"]
+python-apt
